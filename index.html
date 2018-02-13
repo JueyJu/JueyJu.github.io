@@ -201,7 +201,6 @@
 
       var virtualRates = $.getInfo("https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,DASH,BTC,LTC,BCH,XEM&tsyms=USD,EUR");
       var physicalRates = $.getInfo("https://api.fixer.io/latest");
-      console.log($.getInfo("http://alice6.nem.ninja:7890/account/unconfirmedTransactions?address=NDWVLV33AS67WIGXSYLIKYT33EYYQPYM2K3D5R2M"));
 
       //AUD
       var euro = amount/Number(physicalRates.rates.AUD);
