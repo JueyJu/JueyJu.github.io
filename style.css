@@ -192,23 +192,27 @@ input[type=radio]:checked + .box .icon-check {
 .modal {
 	color: #fff;
 }
+
 .modal-header {
+
 	background-image: url("images/bg.jpg");
-	min-width: 630px;
+	min-width: 600px;
+	
+
 }
 
 .modal-content, .modal .modal-body {
 	background-color: #fff;
-	min-width: 630px;
+	min-width: 600px;
 }
 
 .currencyContainer {
 	min-width: 550px;
+	width: inherit;
 }
 
 .modalText {
 	color: #000;
-	margin: 20px 0 50px 0;
 	font-size: 38px;
 	line-height: 15px;
 }
@@ -223,10 +227,11 @@ input[type=radio]:checked + .box .icon-check {
 }
 
 .modalFooter {
-	min-width: 630px;
+
 	background-image: url("images/bg.jpg");
 	text-align: center;
 	padding: 25px 0 15px 0;
+	min-width: 600px;
 }
 
 .listen {
