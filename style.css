@@ -194,11 +194,8 @@ input[type=radio]:checked + .box .icon-check {
 }
 
 .modal-header {
-
 	background-image: url("images/bg.jpg");
 	min-width: 600px;
-	
-
 }
 
 .modal-content, .modal .modal-body {

@@ -179,29 +179,22 @@
     });
 
     $(document).ready(function(){
-
       $("#newPaymentSubmitButton").click(function(){
 
           getCoin();
-
           $("#newPaymentModal").modal();
       });
-
     });
 
-    var url_string = window.location.href;
-    var url = new URL(url_string);
-    var amount = url.searchParams.get("amount");
-    var merchantCurrency = url.searchParams.get("merchantCurrency");
-    
-    if(amount != null && merchantCurrency != null){
+    $(document).ready(function () {
+      $('#newPaymentForm').on('submit', function(e) {
+        e.preventDefault();
 
-      $("#"+merchantCurrency.toLowerCase()).prop('checked', true);
-      $("#amount").val(Number(amount));     
-
-      getCoin();
-      $("#newPaymentModal").modal();
-    }
+        getCoin();
+        $("#newPaymentModal").modal();           
+            
+      });
+    });
 
     $("#newPaymentModal").draggable();
 
