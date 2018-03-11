@@ -36,7 +36,7 @@ body {
 }
 
 @media (max-width: 768px) { 
-	.optionsContainer, .imageContainer { text-align: center ;} 
+	.optionsContainer, .imageContainer { text-align: center;} 
 	.options {margin-top: 10px;}
 }
 
