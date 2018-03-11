@@ -153,7 +153,6 @@
             </button>
           </div>
           <div class="modal-body">
-            <P>Your payment has been received!</P>
             <img src="images/tick2.png">
           </div>
           <div class="modal-footer">
@@ -179,6 +178,9 @@
     });
 
     $(document).ready(function(){
+
+      $("#confirmationModal").modal();
+
       $("#newPaymentSubmitButton").click(function(){
 
           getCoin();
