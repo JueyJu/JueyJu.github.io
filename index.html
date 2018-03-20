@@ -1,290 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  
-  <link rel="stylesheet" href="payment.css">
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-  <!-- bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-  <!-- fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <link href="https://file.myfontastic.com/cHdrvWNNrY4csknAjp8hXY/icons.css" rel="stylesheet">
-
-  <!-- qrcode -->
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
-  <script type="text/javascript" src="qrcode.js"></script>
-
-  <!-- helper -->
-  <script src="dist/nem-sdk.js"></script>
-  <script type="text/javascript" src="helper.js"></script>
-
-</head>
-
-<body>
-
-  <div class="pagecontainer">
-    <div class="header"> <div class="row">
-      <div class="col-md-5 imageContainer"> 
-        <img src="images/nomnom.png">
-      </div>
-      <div class="col-md-7 optionsContainer"> <div class="options"> 
-        <a href="history.html"><div class="optionslink">History </div></a>
-      </div>
-    </div> </div>
-  </div>
-
-  <div class="content">
-    <form id="newPaymentForm" name="newPaymentForm" class="form-inline  text-center">
-
-      <!-- select coin -->
-      <section class="coinSelector">
-        <div class="row">
-          <div class="w-100 d-xl-none d-lg-none d-md-none d-sm-block"></div>
-          <input type="radio" id="nem" name="merchantCurrency" value="NEM" 
-            checked="checked">
-          <div class="col box">
-                    <label for="nem">
-                      <div class="icon-check"></div>
-              <img src="images/NEM.png">
-              <p> NEM </p>
-            </label>
-          </div>
-        </div>
-      </section>
-
-      <!-- enter an amount -->
-      <div class="payment">
-        <div class="row">
-          <div class="input-group input-group-lg col-md-8">
-
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">$</span>
-            </div>
-
-            <label class="sr-only" for="amount">Amount</label>
-
-            <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter Amount" 
-              aria-label="amount" step="any" min="0" autocomplete="off" autofocus>
-
-          </div>
-
-          <div class="input-group col-md-4">
-            <button type="button" id="newPaymentSubmitButton" class="btn btn-primary">
-
-                Pay now
-
-            </button>
-                   
-          </div>
-        </div>
-      </div>
-
-      <!-- payment modal -->
-      <div class="modal fade" id="newPaymentModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"
-        style="left: -10%;">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="row currencyContainer">
-                <div class="currency col">
-                  <img src="images/Australia.png">
-                  <p id="au"> Australia <br> $1.00</p>
-                </div>
-                <div class="currency col">
-                  <img src="images/China.png">
-                  <p id="cn"> China <br>RMB <br>$1.00</p>
-                </div>
-                <div class="currency col">
-                  <img src="images/Japan.png">
-                  <p id="jp">Japan <br> $1.00</p>
-                </div>
-                <div class="currency col">
-                  <img src="images/usa.png">
-                  <p id="us"> USA <br>$1.00</p>
-                </div>
-                <div class="currency col">
-                  <img src="images/EuropeanUnion.png">
-                  <p id="eu">Euro <br>  $1.00</p>
-                </div>
-              </div>
-
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <div class="modal-body">
-
-              <div class="modalText">
-                <h2 id = title> Send exactly </h2><br>
-                <p id = "digitalAmount"> </p>
-              </div>
-
-              </br>
-                
-              <div id="qrcode" style="width: inherit; height: inherit; padding-left: 135px;
-                overflow: hidden; -moz-box-sizing:border-box; -webkit-box-sizing:border-box 
-                box-sizing:border-box;"></div>
-              <font color="black">NDWVLV33AS67WIGXSYLIKYT33EYYQPYM2K3D5R2M</font>
-
-            </div>
-
-            <div class="modalFooter">
-                <p class="listen"> Listening for payment </p>
-            </div>
-          
-          </div>
-        </div>
-      </div>
-
-      <!-- confirmation modal -->
-      <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <img src="images/tick2.png">
-          </div>
-          <div class="modal-footer">
-            <div class="footer"> Powered by <img src="images/travelbybit200.png"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    </form>
-
-     <div class="footerContainer ">
-      <div class="footer"> Powered by <img src="images/travelbybit200.png"></div>
-    </div>
-
-  </div>
-
-  <script>
-
-    var qrcode = new QRCode(document.getElementById("qrcode"), {
-      width : 300,
-      height : 300
-    });
-
-    $(document).ready(function(){
-
-      $("#confirmationModal").modal();
-
-      $("#newPaymentSubmitButton").click(function(){
-
-          getCoin();
-          $("#newPaymentModal").modal();
-      });
-    });
-
-    $(document).ready(function () {
-      $('#newPaymentForm').on('submit', function(e) {
-        e.preventDefault();
-
-        getCoin();
-        $("#newPaymentModal").modal();           
-            
-      });
-    });
-
-    $("#newPaymentModal").draggable();
-
-    function getCoin(){
-
-      if(document.getElementById('nem').checked){
-        checked = "XEM";
-
-      }
-
-      displayRates(document.getElementById("amount").value, checked);
-
-    }
-
-    function checkInput() {
-
-      document.getElementById("newPaymentSubmitButton").setAttribute("disabled", "disabled");
-
-        if (document.getElementById("amount").value > 0) {
-
-          document.getElementById('newPaymentSubmitButton').removeAttribute('disabled');
-
-        }
-    }
-
-    function displayRates(amount, checked){
-
-      var virtualRates = $.getInfo("https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,DASH,BTC,LTC,BCH,XEM&tsyms=USD,EUR");
-      var physicalRates = $.getInfo("https://api.fixer.io/latest");
-
-      //AUD
-      var euro = amount/Number(physicalRates.rates.AUD);
-      document.getElementById("au").innerHTML = "AUD" + "$" 
-        + Number(amount).toFixed(2);
-
-      //CNY
-      document.getElementById("cn").innerHTML = "CNY" + "¥" 
-        + (euro*Number(physicalRates.rates.CNY)).toFixed(2);
-
-      //JPY
-      document.getElementById("jp").innerHTML = "JPY" + "¥" 
-        + (euro*Number(physicalRates.rates.JPY)).toFixed(2);
-
-      //EUR
-      document.getElementById("eu").innerHTML = "EUR" + "€" 
-        + (euro).toFixed(2);
-
-      //USD
-      document.getElementById("us").innerHTML = "USD" + "$" 
-        + (euro*Number(physicalRates.rates.USD)).toFixed(2);
-
-      //display amount
-      document.getElementById("digitalAmount").innerHTML = 
-        (euro/Number(virtualRates[checked].EUR)).toFixed(6) + " " + checked;
-
-      genWallet();
-
-    }
-
-    var elText;
-
-    function getCurrencyAddr(){
-
-      var addr;
-      var name;
-      var amount;
-      var qrCode;
-
-      if(document.getElementById('nem').checked){
-        addr = "NDWVLV33AS67WIGXSYLIKYT33EYYQPYM2K3D5R2M";
-        name = "DanielTravelByBit";
-        amount = document.getElementById("digitalAmount").innerHTML.split(" ")[0]*1000000;
-
-        qrCode = '{"type":"2","v":"2","data":{"name":"NomNom-NemBar","msg":"","amount":'+amount+',"addr":"'+addr+'"}}';
-      }
-
-      return qrCode;
-
-    }
-
-    function genWallet(wallet) {  
-
-      elText = getCurrencyAddr(wallet);
-      qrcode.makeCode(elText);
-
-    }
-
-  </script>
-
-</body>
+<html>
+	<head>
+		<!-- Jquery -->
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+		<!-- datatable includes -->
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+  		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
+  		<!-- bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		<!-- fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+		<link href="https://file.myfontastic.com/cHdrvWNNrY4csknAjp8hXY/icons.css" rel="stylesheet">
+
+	</head>
+
+	<body>
+		<table id="transactionList", class="display">
+	       <thead>
+				<tr>
+					<th style="width:20%;">Date:</th>
+					<th style="width:20%;">Merchant:</th>
+					<th style="width:20%;">Amount (AUD):</th>
+					<th style="width:20%;">Paid in:</th>
+					<th style="width:10%;">Status:</th>
+					<th style="width:10%;">Signee:</th>
+				</tr>
+	  		</thead>
+	    </table>
+
+	    <div class="modal fade" id="signeeModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5>Thanks for signing!</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<p style="color:black">
+							Just to make sure this is you, input the 5 digit code you 
+							received when you completed your transaction.
+						</p>
+						<input type="text" id="5DigitCode" onkeyup="validate()" placeholder="5 digit code...">
+						<input type="text" id="sign" onkeyup="submit()" placeholder="leave your signature">
+						<button type="button" id="pushButton" class="btn btn-primary" onclick="push()">Submit</button>
+					</div>
+
+					<div class="modal-footer">
+						<div class="footer"> Powered by <img src="images/travelbybit200.png">
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+		<script type="text/javascript" src="example.js"></script>
+
+	</body>
 </html>
