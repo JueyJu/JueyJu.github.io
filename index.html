@@ -1,67 +1,218 @@
-<html>
-	<head>
-		<!-- Jquery -->
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-		<!-- datatable includes -->
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-  		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  		<!-- bootstrap -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>TravelByBit Airport Site</title>
 
-		<!-- fonts -->
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-		<link href="https://file.myfontastic.com/cHdrvWNNrY4csknAjp8hXY/icons.css" rel="stylesheet">
+    <!-- Jquery -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://d3js.org/d3.v3.min.js"></script>
 
-	</head>
+	<!-- datatable includes -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
-	<body>
-		<table id="transactionList", class="display">
-	       <thead>
-				<tr>
-					<th style="width:20%;">Date:</th>
-					<th style="width:20%;">Merchant:</th>
-					<th style="width:20%;">Amount (AUD):</th>
-					<th style="width:20%;">Paid in:</th>
-					<th style="width:10%;">Status:</th>
-					<th style="width:10%;">Signee:</th>
-				</tr>
-	  		</thead>
-	    </table>
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-	    <div class="modal fade" id="signeeModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5>Thanks for signing!</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
+	<!-- fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="https://file.myfontastic.com/cHdrvWNNrY4csknAjp8hXY/icons.css" rel="stylesheet">
 
-					<div class="modal-body">
-						<p style="color:black">
-							Just to make sure this is you, input the 5 digit code you 
-							received when you completed your transaction.
-						</p>
-						<input type="text" id="5DigitCode" onkeyup="validate()" placeholder="5 digit code...">
-						<input type="text" id="sign" onkeyup="submit()" placeholder="leave your signature">
-						<button type="button" id="pushButton" class="btn btn-primary" onclick="push()">Submit</button>
-					</div>
+    <!-- Custom styles for this template -->
+    <link href="landing.css" rel="stylesheet">
+  </head>
 
-					<div class="modal-footer">
-						<div class="footer"> Powered by <img src="images/travelbybit200.png">
-					</div>
+  <body>
 
-				</div>
-			</div>
-		</div>
+    <nav class="site-header sticky-top py-1">
+      <div class="top-container d-flex flex-column flex-md-row justify-content-between">
+        <img src="images/travelbybit_transperent.png" style="width:30%; height:20%;">
 
-	    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-		<script type="text/javascript" src="example.js"></script>
+        <div class="text-white" style="margin-top:30px; margin-right:-15%;">
+          <a class="links" href="">Home</a>
+          <a class="links" href="">Transaction List</a>
+          <a class="links" href="">Statistics</a>
+          <a class="links" href="">Maps</a>
+        </div>  
+      </div>
+    </nav>
 
-	</body>
+    <!-- banner -->
+    <div class="jumbotron"></div>
+
+    <!-- table -->
+    <div style="width:90%; margin-left:5%;">
+      <div style="margin-top:5%;">
+        <h2 class="display-5" id="table">Transactions happening now!</h2>
+        <p class="lead">Sign and make your transactions uniques.</p>
+      </div>
+
+      <div style="margin-top:2%;">
+        <table id="transactionList", class="display">
+          <thead>
+            <tr>
+              <th>Date:</th>
+              <th>Amount (AUD):</th>
+              <th>Paid in:</th>
+              <th>Signee:</th>
+            </tr>
+          </thead>
+        </table>
+    </div>
+
+    <div style="margin-top:2%; margin-bottom:2%;">
+      <!-- statistics -->
+      <div style="float:left; width:48%;">
+        <div style="margin-top:5%;">
+          <h2 class="display-5" id="stats">Whose spending what?</h2>
+          <p class="lead">An overview of what coins people are using in the airport.</p>
+        </div>
+
+        <div>
+          <div id="chart" style="width:480px; height:250px; margin-top:-5%;"></div>
+          <h5 class="text-left" style="margin-left:20px">The coins we support:</h5>
+          <div>
+            <img src="images/Bitcoin.png">
+            <img src="images/Ether.png">
+            <img src="images/Litecoin.png">
+            <img src="images/Dash.png">
+          </div>  
+          <h5 class="text-left" style="margin-left:20px">Coins coming soon:</h5>
+          <div>
+            <img src="images/NEM.png">
+            <img src="images/BitcoinCash.png">
+          </div>
+        </div>
+      </div>
+
+      <!-- news feed -->
+      <div style="float:left; width:48%; margin-left:30px;">
+        <div style="margin-top:5%;">
+          <h2 class="display-5" id="news">See what the rest of the world is saying!</h2>
+          <p class="lead">It's not just us the whole world is talking.</p>
+        </div>
+
+        <div>
+          <div class="container">
+            <img src="images/lonelyPlanet.jpg" alt="Avatar" class="av-img">
+            <h5 class="title">Lonely Planet</h5>
+            <span class="time-right">FEB 2, 2018</span>
+
+            <div style="margin-top: 5%">
+              <div style="float:left; width:50%;">
+                <img src="images/LPcoffee.jpg" style="height:80%; width:80%;">
+              </div>
+              
+              <div style="float:left; width:50%;" class="text-left">
+                <h6>
+                  Have Bitcoin? This airport is starting to accept crypto-currency
+                </h6>
+                <p>
+                  By Alex Butler.
+                </p>
+                <a href="https://www.lonelyplanet.com/news/2018/02/01/brisbane-airport-bitcoin-cryptocurrency/" style="color:black;">
+                  view full article
+                </a>                      
+              </div>
+            </div>
+          </div>
+
+          <div class="container">
+            <img src="images/foxNews.png" alt="Avatar" class="av-img">
+            <h5 class="title">Fox News</h5>
+            <span class="time-right">31 JAN, 2018</span>
+
+            <div style="margin-top: 5%">
+              <div style="float:left; width:50%;">
+                <img src="images/FNnews.png" style="height:80%; width:80%;">
+              </div>
+              
+              <div style="float:left; width:50%;" class="text-left">
+                <h6>
+                  Major airport announces it will now accept bitcoin
+                </h6>
+                <p>
+                  By Aric Jensen.
+                </p>
+                <a href="http://www.foxnews.com/travel/2018/01/30/major-airport-announces-it-will-now-accept-bitcoin.html" 
+                  style="color:black;">
+
+                  view full article
+                </a>                      
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- maps -->
+    <div style="margin-top:62%;">
+      <div style="width:50%;">
+        <h2 class="display-5" id="map">Find a merchant!</h2>
+        <p class="lead">
+          There are currently over 15 merchants taking crypto over both the international and domestic terminals. Heres a couple of maps just to help you find them.
+        </p>
+      </div>
+
+      <div style="margin-top:4%; float:left; width:50%;">
+        <h5>International Terminal</h5>
+        <img src="images/int_map.png" style="width:400px; height:25em;">
+      </div>
+
+      <div style="margin-top:4%; float:left; width:50%;">
+        <h5>Domestic Terminal</h5>
+        <img src="images/dom_airport.png" style="width:400px; height:25em;">
+      </div>
+    </div>
+  </div>
+
+  <footer class="top-container" style="margin-top:42%; margin-left:5%;">
+    <p>&copy; TravelByBit 2017-2018</p>
+  </footer>
+
+
+
+    <!-- signature modal -->
+    <div class="modal fade" id="signeeModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    	<div class="modal-dialog" role="document">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<h5>Thanks for signing!</h5>
+    				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    				<span aria-hidden="true">&times;</span>
+    				</button>
+    			</div>
+
+    			<div class="modal-body">
+    				<p style="color:black">
+    					Just to make sure this is you, input the 5 digit code you 
+    					received when you completed your transaction.
+    				</p>
+    				<input type="text" id="5DigitCode" onkeyup="validate()" placeholder="5 digit code...">
+    				<input type="text" id="sign" onkeyup="submit()" placeholder="leave your signature">
+    				<button type="button" id="pushButton" class="btn btn-primary" onclick="push()">Submit</button>
+    			</div>
+
+    			<div class="modal-footer">
+    				<div class="footer"> Powered by <img src="images/travelbybit200.png">
+    			</div>
+    		</div>
+    	</div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+	<script type="text/javascript" src="pieTest.js"></script>
+	<script type="text/javascript" src="example.js"></script>
+
+  </body>
 </html>

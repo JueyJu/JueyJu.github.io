@@ -17,24 +17,36 @@ var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oc
 var adjectives = ["Spicy", "Sleepy", "Saucy", "Tame", "Eager", "Awkward", "Keen", "Ambitious", "Loyal", "Decent", "Good", "Livid"];
 var animal = ["Doggo", "Cat", "Moose", "Tiger", "Turtle", "Lion", "Ant Eater", "Swallow", "Dragon", "Rooster", "Deer", "Sheep"];
 
+var validMerchants = ["NomNom", "Royal Black"];
+var validCurrencies = ["Bitcoin", "Ether", "Litecoin", "Dash"];
+
+var chartData = [{"label":"Bitcoin", "value":0},{"label":"Litecoin","value":0},{"label":"Dash","value":0},{"label":"Ether","value":0}];
+index = 0;
+
+var pendingDict = {};
+var count = 0;
+
 var pass = "tbb<3";
 
-var transactions = []; 
-var index = 0;
+var savedTransactions = {};
 var currentId = "";
 
 var dataTable = $('#transactionList').DataTable({
     "order": [[0, "desc"]]
 });
 
-function writeUserData(transactionId, signer) {
+function writeUserData(transactionId, date, merchant, amount, coin, signer) {
   firebase.database().ref('transactionId/' + transactionId).set({
+    date: date,
+    merchant: merchant,
+    amount: amount,
+    coin: coin,
     signer: signer
   });
 }
 
-function readUserData(transactionId){
-    return firebase.database().ref('transactionId/' + transactionId + '/signer').once('value').then(function(snapshot) {
+function readUserData(){
+    return firebase.database().ref('transactionId').once('value').then(function(snapshot) {
         return snapshot.val();
     });
 }
@@ -76,7 +88,7 @@ function compareDate(date){
         return false;
     }
 
-    else if((parseInt(cur[0]) - parseInt(comp[0])) > 0){
+    else if((parseInt(cur[0]) - parseInt(comp[0])) > 2){
         return false;
     }
 
@@ -96,6 +108,16 @@ function submit(){
     }
 }
 
+function genChartData(bill){
+ 
+    for(var i=0; i<chartData.length; i++){
+        if(chartData[i].label == bill.actualAsset){
+            chartData[i].value += bill.amount; 
+
+        }
+    }
+}
+
 function validate(){
     
     var validate = document.getElementById("5DigitCode").value;
@@ -110,7 +132,10 @@ function validate(){
 function push(){
     var txid = currentId.getAttribute('id');
     var signee = document.getElementById('sign').value;
-    writeUserData(txid, signee);
+
+    writeUserData("STx" + Object.keys(savedTransactions).length, pendingDict[txid].date, pendingDict[txid].merchant, 
+        pendingDict[txid].amount, pendingDict[txid].coin, signee);
+
     currentId.replaceWith(signee);
 
     $("#signeeModal").modal("hide");
@@ -133,39 +158,56 @@ function openWebsocket() {
     };
 
     ws.onmessage = function (evt) {
+
         var bill = JSON.parse(evt.data);
-        
-        transactions.push(bill);
 
-        for(var i=index; i<transactions.length; i++){
-            readUserData("tx"+i.toString()).then(function(val){
+        if(bill.merchant.split('-')[0] == "Cater Care " || validMerchants.indexOf(bill.merchant) > -1){
 
-                if(val == null){
+            genChartData(bill);
+
+            for(var j=0; j<Object.keys(savedTransactions).length; j++){
+
+                var key = "STx" + j;
+
+                if(savedTransactions[key].date == bill.date
+                    && savedTransactions[key].merchant == bill.merchant
+                    && savedTransactions[key].amount == bill.amount
+                    && savedTransactions[key].coin == bill.actualAsset){
+
+                    var rowNode = dataTable
+                        .row.add([bill.date, bill.amount, bill.actualAsset, savedTransactions[key].signer])
+                        .draw()
+                        .node();
+                    
+                }else if(j == Object.keys(savedTransactions).length - 1){
                     if(!compareDate(bill.date)){
                         var rowNode = dataTable
-                            .row.add([bill.date, bill.merchant, bill.amount, bill.actualAsset, bill.status, genRandomName()])
+                            .row.add([bill.date, bill.amount, bill.actualAsset, genRandomName()])
                             .draw()
                             .node();
                     }else{
                         var vaildationButton  = '<button type="button" class="btn btn-primary"' 
-                            + 'id="tx'+i+'" onclick="updateSignee(tx'+i.toString()+')">Sign</button>';
+                            + 'id="tx'+index+'" onclick="updateSignee(tx'+index+')">Sign</button>';
+
+                        var tag = "tx" + index;
+
+                        pendingDict[tag] = {"date": bill.date,
+                                "merchant": bill.merchant,
+                                "amount": bill.amount,
+                                "coin": bill.actualAsset};
+
+                        index++;
 
                         var rowNode = dataTable
-                            .row.add([bill.date, bill.merchant, bill.amount, bill.actualAsset, bill.status, vaildationButton])
+                            .row.add([bill.date, bill.amount, bill.actualAsset, vaildationButton])
                             .draw()
                             .node();
                     }
-                    
-                }else{
-                    var rowNode = dataTable
-                        .row.add([bill.date, bill.merchant, bill.amount, bill.actualAsset, bill.status, val])
-                        .draw()
-                        .node();
                 }
-                                
-            });
-            index = i+1;
-        }    
+            }
+
+            change(chartData);
+        }          
     };
 
     ws.onclose = function () {
@@ -183,7 +225,13 @@ if ("WebSocket" in window) {
     document.getElementById("sign").setAttribute('disabled', 'disbaled');
     document.getElementById("pushButton").setAttribute('disabled', 'disbaled');
 
+    readUserData().then(function(val){
+        savedTransactions = val;
+    });
+
     openWebsocket();
+
+
 
 } else {
     // The browser doesn't support WebSocket
