@@ -16,6 +16,11 @@
 	<!-- datatable includes -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js">
+  </script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js">
+  </script>
+
 
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -52,94 +57,91 @@
         </table>
     </div>
 
-    <div style="margin-top:2%; margin-bottom:2%;">
+    <div style="margin-top:10%;">
       <!-- statistics -->
-      <div style="float:left; width:48%;">
-        <div style="margin-top:5%;">
-          <h2 class="display-5" id="stats">Whose spending what?</h2>
-          <p class="lead">An overview of what coins people are using in the airport.</p>
-        </div>
+      <div style="float:left; width:48%; margin-left:8%">
+        <h2 class="display-5" id="stats">Whose spending what?</h2>
+        <p class="lead">An overview of what coins people are using in the airport.</p>
+        <div id="chart" style="width:480px; height:250px; margin-top:-5%;"></div>
+      </div>
 
+      <!-- news feed -->
+      <div style="float:left; width:30%; margin-left:5%;">
+        <h5 class="text-left" style="margin-left:20px">The coins we support:</h5>
         <div>
-          <div id="chart" style="width:480px; height:250px; margin-top:-5%;"></div>
-          <h5 class="text-left" style="margin-left:20px">The coins we support:</h5>
-          <div>
-            <img src="images/Bitcoin.png">
-            <img src="images/Ether.png">
-            <img src="images/Litecoin.png">
-            <img src="images/Dash.png">
-          </div>  
-          <h5 class="text-left" style="margin-left:20px">Coins coming soon:</h5>
-          <div>
-            <img src="images/NEM.png">
-            <img src="images/BitcoinCash.PNG">
+          <img src="images/Bitcoin.png">
+          <img src="images/Ether.png">
+          <img src="images/Litecoin.png">
+          <img src="images/Dash.png">
+        </div>  
+        <h5 class="text-left" style="margin-left:20px">Coins coming soon:</h5>
+        <div>
+          <img src="images/NEM.png">
+          <img src="images/BitcoinCash.PNG">
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:50%;">
+      <div class="container">
+        <img src="images/lonelyPlanet.jpg" alt="Avatar" class="av-img">
+        <h5 class="title">Lonely Planet</h5>
+        <span class="time-right">FEB 2, 2018</span>
+
+        <div style="margin-top: 5%;">
+          <div style="float:left; width:40%; margin-left:10%; margin-top:-3%;">
+            <img src="images/LPcoffee.jpg" style="height:80%; width:80%;">
+          </div>
+          
+          <div style="float:left; width:40%; margin-top:-6%;" class="text-left">
+            <h6>
+              Have Bitcoin? This airport is starting to accept cryptocurrency
+            </h6>
+            <p>
+              If you happen to have some wildly valuable Bitcoin hanging around, there’s now a chance to spend some of the cryptocurrency at an Australian Airport. 
+            </p>
+            <p>
+              By Alex Butler.
+            </p>
+            <a href="https://www.lonelyplanet.com/news/2018/02/01/brisbane-airport-bitcoin-cryptocurrency/" style="color:black;">
+              view full article
+            </a>                      
           </div>
         </div>
       </div>
 
-      <!-- news feed -->
-      <div style="float:left; width:48%; margin-left:30px;">
+      <div class="container">
+        <img src="images/foxNews.png" alt="Avatar" class="av-img">
+        <h5 class="title">Fox News</h5>
+        <span class="time-right">31 JAN, 2018</span>
+
         <div style="margin-top:5%;">
-          <h2 class="display-5" id="news">See what the rest of the world is saying!</h2>
-          <p class="lead">It's not just us the whole world is talking.</p>
-        </div>
-
-        <div>
-          <div class="container">
-            <img src="images/lonelyPlanet.jpg" alt="Avatar" class="av-img">
-            <h5 class="title">Lonely Planet</h5>
-            <span class="time-right">FEB 2, 2018</span>
-
-            <div style="margin-top: 5%">
-              <div style="float:left; width:50%;">
-                <img src="images/LPcoffee.jpg" style="height:80%; width:80%;">
-              </div>
-              
-              <div style="float:left; width:50%;" class="text-left">
-                <h6>
-                  Have Bitcoin? This airport is starting to accept crypto-currency
-                </h6>
-                <p>
-                  By Alex Butler.
-                </p>
-                <a href="https://www.lonelyplanet.com/news/2018/02/01/brisbane-airport-bitcoin-cryptocurrency/" style="color:black;">
-                  view full article
-                </a>                      
-              </div>
-            </div>
+          <div style="float:left; width:40%; margin-left:10%; margin-top:-3%;">
+            <img src="images/FNnews.png" style="height:80%; width:80%;">
           </div>
+          
+          <div style="float:left; width:40%; margin-top:-6%;" class="text-left">
+            <h6>
+              Major airport announces it will now accept bitcoin
+            </h6>
+            <p>
+                Australia’s Brisbane Airport quietly announced last week that it will soon allow travelers to pay with crypto coins at its terminal shopping areas, according to iT news. It will be the first airport in the world to do so.
+            </p>
+            <p>
+              By Aric Jensen.
+            </p>
+            <a href="http://www.foxnews.com/travel/2018/01/30/major-airport-announces-it-will-now-accept-bitcoin.html" 
+              style="color:black;">
 
-          <div class="container">
-            <img src="images/foxNews.png" alt="Avatar" class="av-img">
-            <h5 class="title">Fox News</h5>
-            <span class="time-right">31 JAN, 2018</span>
-
-            <div style="margin-top: 5%">
-              <div style="float:left; width:50%;">
-                <img src="images/FNnews.PNG" style="height:80%; width:80%;">
-              </div>
-              
-              <div style="float:left; width:50%;" class="text-left">
-                <h6>
-                  Major airport announces it will now accept bitcoin
-                </h6>
-                <p>
-                  By Aric Jensen.
-                </p>
-                <a href="http://www.foxnews.com/travel/2018/01/30/major-airport-announces-it-will-now-accept-bitcoin.html" 
-                  style="color:black;">
-
-                  view full article
-                </a>                      
-              </div>
-            </div>
+              view full article
+            </a>                      
           </div>
         </div>
       </div>
     </div>
 
     <!-- maps -->
-    <div style="margin-top:62%;">
+    <div style="margin-top:10%;">
       <div style="width:50%;">
         <h2 class="display-5" id="map">Find a merchant!</h2>
         <p class="lead">
@@ -147,45 +149,44 @@
         </p>
       </div>
 
-      <div style="margin-top:4%; float:left; width:50%;">
+      <div style="margin-top:4%; float:left; width:45%; margin-left:5%;">
         <h5>International Terminal</h5>
-        <img src="images/int_map.png" style="width:400px; height:25em;">
+        <img src="images/int_map.png" style="width:450px; height:35em;">
       </div>
 
-      <div style="margin-top:4%; float:left; width:50%;">
+      <div style="margin-top:4%; float:left; width:45%; margin-left:5%;">
         <h5>Domestic Terminal</h5>
-        <img src="images/dom_airport.png" style="width:400px; height:25em;">
+        <img src="images/dom_airport.png" style="width:450px; height:35em;">
       </div>
     </div>
   </div>
 
-    <!-- signature modal -->
-    <div class="modal fade" id="signeeModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    	<div class="modal-dialog" role="document">
-    		<div class="modal-content">
-    			<div class="modal-header">
-    				<h5>Thanks for signing!</h5>
-    				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    				<span aria-hidden="true">&times;</span>
-    				</button>
-    			</div>
+  <!-- signature modal -->
+  <div class="modal fade" id="signeeModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  	<div class="modal-dialog" role="document">
+  		<div class="modal-content">
+  			<div class="modal-header">
+  				<h5>Thanks for signing!</h5>
+  				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  				<span aria-hidden="true">&times;</span>
+  				</button>
+  			</div>
 
-    			<div class="modal-body">
-    				<p style="color:black">
-    					Just to make sure this is you, input the 5 digit code you 
-    					received when you completed your transaction.
-    				</p>
-    				<input type="text" id="5DigitCode" onkeyup="validate()" placeholder="5 digit code...">
-    				<input type="text" id="sign" onkeyup="submit()" placeholder="leave your signature">
-    				<button type="button" id="pushButton" class="btn btn-primary" onclick="push()">Submit</button>
-    			</div>
+  			<div class="modal-body">
+  				<p style="color:black">
+  					Just to make sure this is you, input the 5 digit code you 
+  					received when you completed your transaction.
+  				</p>
+  				<input type="text" id="5DigitCode" onkeyup="validate()" placeholder="5 digit code...">
+  				<input type="text" id="sign" onkeyup="submit()" placeholder="leave your signature">
+  				<button type="button" id="pushButton" class="btn btn-primary" onclick="push()">Submit</button>
+  			</div>
 
-    			<div class="modal-footer">
-    				<div class="footer"> Powered by <img src="images/travelbybit200.png">
-    			</div>
-    		</div>
-    	</div>
-    </div>
+  			<div class="modal-footer">
+  				<div class="footer"> Powered by <img src="images/travelbybit200.png"></div>
+  			</div>
+  		</div>
+  	</div>
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>

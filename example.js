@@ -14,9 +14,6 @@ var database = firebase.database();
 
 var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-var adjectives = ["Spicy", "Sleepy", "Saucy", "Tame", "Eager", "Awkward", "Keen", "Ambitious", "Loyal", "Decent", "Good", "Livid"];
-var animal = ["Doggo", "Cat", "Moose", "Tiger", "Turtle", "Lion", "Ant Eater", "Swallow", "Dragon", "Rooster", "Deer", "Sheep"];
-
 var validMerchants = ["NomNom", "Royal Black"];
 var validCurrencies = ["Bitcoin", "Ether", "Litecoin", "Dash"];
 
@@ -32,8 +29,10 @@ var savedTransactions = {};
 var currentId = "";
 
 var dataTable = $('#transactionList').DataTable({
-    "order": [[0, "desc"]]
+    "order": [[0, "desc"]],
+    "aoColumnDefs": [{"sType": "date","aTargets": [0]}]
 });
+
 
 function writeUserData(transactionId, date, merchant, amount, coin, signer) {
   firebase.database().ref('transactionId/' + transactionId).set({
@@ -182,7 +181,7 @@ function openWebsocket() {
                 }else if(j == Object.keys(savedTransactions).length - 1){
                     if(!compareDate(bill.date)){
                         var rowNode = dataTable
-                            .row.add([bill.date, bill.amount, bill.actualAsset, genRandomName()])
+                            .row.add([bill.date, bill.amount, bill.actualAsset, "Anonymous"])
                             .draw()
                             .node();
                     }else{

@@ -74,7 +74,6 @@ function change(data) {
 
     text.transition()
         .text(function(d) {
-            console.log(d.data);
             return d.data.label + " " + ((d.endAngle - d.startAngle)/(2*Math.PI)*100).toFixed(2) + "%";
         });
     
