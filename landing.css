@@ -24,6 +24,14 @@ polyline{
   margin-left: 20px;
 }
 
+h2 {
+  font-family:Lato semibold;
+}
+
+h5 {
+  font-family:Lato light;
+}
+
 /*
  * Custom translucent site header
  */
