@@ -33,7 +33,7 @@ var key = function(d){ return d.data.label; };
 
 var color = d3.scale.ordinal()
     .domain(["Bitcoin", "Litecoin", "Ether", "Dash"])
-    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b"]);
+    .range(["#ed8f0b", "#abb2b5", "#ac64c9", "#68a9e2"]);
 
 function change(data) {
 
