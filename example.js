@@ -14,7 +14,7 @@ var database = firebase.database();
 
 var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-var validMerchants = ["Emporium", "Royal Black"];
+var validMerchants = ["Stephs Cafe", "Emporium", "Royal Black"];
 var validCurrencies = ["Bitcoin", "Ether", "Litecoin", "Dash"];
 
 var chartData = [{"label":"Bitcoin", "value":0},{"label":"Litecoin","value":0},{"label":"Dash","value":0},{"label":"Ether","value":0}];
