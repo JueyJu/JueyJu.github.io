@@ -1,238 +1,402 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>TravelByBit Airport Site</title>
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="images/logo.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="images/logo.png">
 
-    <!-- Jquery -->
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script src="https://d3js.org/d3.v3.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>TravelByBit | Airport Demo</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/gaia.css" rel="stylesheet"/>
 
-	<!-- datatable includes -->
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js">
-  </script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js">
-  </script>
+    <!--     Fonts and icons     -->
+    <link href='https://fonts.googleapis.com/css?family=Cambo|Poppins:400,600' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/fonts/pe-icon-7-stroke.css" rel="stylesheet">
 
+    <!-- datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/pie.css">
 
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
 
-	<!-- fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-	<link href="https://file.myfontastic.com/cHdrvWNNrY4csknAjp8hXY/icons.css" rel="stylesheet">
+<body>
 
-    <!-- Custom styles for this template -->
-    <link href="landing.css" rel="stylesheet">
-  </head>
-
-  <body>
-
-    <!-- table -->
-    <div style="width:90%; margin-left:5%;">
-      <div style="margin-top:5%;">
-        <h2 class="display-5" id="table">Transactions happening now!</h2>
-        <div style="width:80%;">
-          <p class="lead">
-            The world’s first digital currency airport is our latest project that help travellers visit Brisbane, Australia using cryptocurrencies like Bitcoin. We are very excited to welcome travellers from all over the world to experience this technology.
-          </p>
-
-          <p class="lead">
-            When you spend at one of our merchants in cryptocurrency, you will get a code which allows you to sign into the table below and add a message to your transaction for the world to see.
-          </p>
+    <nav class="navbar navbar-default navbar-transparent navbar-fixed-top" color-on-scroll="200">
+        <!-- if you want to keep the navbar hidden you can add this class to the navbar "navbar-burger"-->
+        <div class="container">
+            <div class="navbar-header">
+                <button id="menu-toggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar bar1"></span>
+                    <span class="icon-bar bar2"></span>
+                    <span class="icon-bar bar3"></span>
+                </button>
+                <p class="navbar-brand">
+                    TravelByBit - Airport Launch
+                </p>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right navbar-uppercase">
+                    <li>
+                        <a href="https://www.travelbybit.com/" target="_blank">Visit our homepage</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#gaia" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-share-alt"></i> Share
+                        </a>
+                        <ul class="dropdown-menu dropdown-basic">
+                            <li>
+                                <a href="https://www.facebook.com/travelbybitaustralia/"><i class="fa fa-facebook-square"></i> Facebook</a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/travelbybit/"><i class="fa fa-twitter"></i> Twitter</a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/travelbybit?lang=en"><i class="fa fa-instagram"></i> Instagram</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-      </div>
+    </nav>
 
-      <div style="margin-top:4%;">
-        <table id="transactionList", class="display">
-          <thead>
-            <tr>
-              <th>Date:</th>
-              <th>Amount (AUD):</th>
-              <th>Paid in:</th>
-              <th>Signee:</th>
-            </tr>
-          </thead>
-        </table>
+
+    <div class="section section-header">
+        <div class="parallax filter">
+            <div class="image"
+                style="background-image: url('images/light_cover.jpg')">
+            </div>
+            <div class="container">
+                <div class="content" style="margin-top:5%;">
+                    <div class="title-area">
+                        <p>Brisbane wer're coming</p>
+                        <img src="images/travelbybit_transperent.png" style="width:40%; height:40%;">
+                        <h3>The world's first digital currency airport</h2>
+                        <div class="separator line-separator">♦</div>
+                    </div>
+
+                    <div class="button-get-started">
+                        <a href="http://www.creative-tim.com/product/gaia-bootstrap-template" target="_blank" class="btn btn-white btn-fill btn-lg ">
+                            Let's Get Started
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div style="margin-top:10%;">
-      <!-- statistics -->
-      <div style="float:left; width:48%; margin-left:8%">
-        <h2 class="display-5" id="stats">See what coins people are using around the airport.</h2>
-        <p class="lead">We work towards supporting currencies with the greatest adoption.</p>
-        <div id="chart" style="width:480px; height:250px; margin-top:-5%;"></div>
-      </div>
 
-      <div style="float:left; width:30%; margin-left:5%; margin-top:15%;">
-        <h5 class="text-left" style="margin-left:20px">The coins we support:</h5>
-        <div>
-          <img src="images/Bitcoin.png">
-          <img src="images/Ether.png">
-          <img src="images/Litecoin.png">
-          <img src="images/Dash.png">
-        </div>  
-        <h5 class="text-left" style="margin-left:20px; margin-top:20px;">Coins coming soon:</h5>
-        <div>
-          <img src="images/NEM.png">
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="title-area">
+                    <h2>Sign A Transaction</h2>
+                    <div class="separator separator-basic">✻</div>
+                    <p class="description">
+                        The world’s first digital currency airport is our latest project that help travellers visit Brisbane, Australia using cryptocurrencies like Bitcoin. We are very excited to welcome travellers from all over the world to experience this technology.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="info-icon">
+                        <div class="icon text-basic">
+                            <i class="pe-7s-cash"></i>
+                        </div>
+                        <h3>Spend Crypto</h3>
+                        <p class="description">
+                            Spend crypto at one of our 30+ merchants throughout both the international and domestic airport.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-icon">
+                        <div class="icon text-basic">
+                            <i class="pe-7s-note2"></i>
+                        </div>
+                        <h3>Sign a transaction</h3>
+                        <p class="description">
+                            Find and sign your transaction in the table below with a message you'd like to leave.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-icon">
+                        <div class="icon text-basic">
+                            <i class="pe-7s-plane"></i>
+                        </div>
+                        <h3>Share with the world</h3>
+                        <p class="description">
+                            Share your transaction with the world and embrace the crypto life.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 3em;">
+                <div style="margin-left:3em;">
+                    <h2>Live Transactions</h2>
+                    <p class="description">
+                        Completely transperent, no hidden fees and no chance of fraud.
+                    </p>
+                </div>
+
+                <div style="margin-top: 3em;" class="plane">
+                    <table id="transactionList" class="display">
+                        <thead>
+                            <tr>
+                                <th>Date:</th>
+                                <th>Amount (AUD):</th>
+                                <th>Paid in:</th>
+                                <th>Signee:</th>
+                            </tr>
+                        </thead>
+                    </table>                    
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
-    <!-- news feed -->
-    <div style="margin-top:70%;">
-      <div style="margin-left: 10%; margin-bottom:5%;">
-        <h2 class="display-5" id="newsfeed">See what the rest of the world is saying!</h2>
-        <p class="lead">t's not just us the whole world is talking.</p>
-      </div>
+    <div class="section section-our-team-freebie">
+        <div class="parallax filter filter-color-black">
+            <div class="image" style="background-image:url('images/world.jpg')">
+            </div>
+            <div class="container">
+                <div class="content">
+                    <div class="row">
+                        <div class="title-area">
+                            <h2>What The World Is Saying</h2>
+                            <div class="separator separator-danger">✻</div>
+                            <p class="description">
+                                It's not just us the whole world is talking.
+                            </p>
+                        </div>
+                    </div>
 
-      <div class="container">
-        <img src="images/lonelyPlanet.jpg" alt="Avatar" class="av-img">
-        <h5 class="title">Lonely Planet</h5>
-        <span class="time-right">FEB 2, 2018</span>
+                    <div class="team">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card card-member">
+                                            <div class="content">
+                                                <div class="avatar avatar-basic">
+                                                    <img alt="..." class="img-circle" 
+                                                        src="images/coinTelegraph.jpg"/>
+                                                </div>
+                                                <div class="description">
+                                                    <h3 class="title">Coin Telegraph</h3>
+                                                    <p class="small-text">25 JAN, 2018</p>
+                                                    <p class="description">
+                                                        The airport is working with local and international companies to make the entire terminal cryptocurrency friendly, with stores, coffee shops and restaurants accepting Bitcoin, Ether and Dash.
+                                                    </p>
 
-        <div style="margin-top: 5%;">
-          <div style="float:left; width:40%; margin-left:20%; margin-top:-3%;">
-            <img src="images/LPcoffee.jpg" style="height:60%; width:60%;">
-          </div>
-          
-          <div style="float:left; width:40%; margin-top:-8%; margin-left:-10%;" class="text-left">
-            <h6>
-              Have Bitcoin? This airport is starting to accept cryptocurrency
-            </h6>
-            <p>
-              If you happen to have some wildly valuable Bitcoin hanging around, there’s now a chance to spend some of the cryptocurrency at an Australian Airport. 
-            </p>
-            <p>
-              By Alex Butler.
-            </p>
-            <a href="https://www.lonelyplanet.com/news/2018/02/01/brisbane-airport-bitcoin-cryptocurrency/" style="color:black;">
-              view full article
-            </a>                      
-          </div>
+                                                    <a href="https://cointelegraph.com/news/worlds-first-cryptocurrency-airport-in-brisbane">
+                                                        view full article
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-member">
+                                            <div class="content">
+                                                <div class="avatar avatar-basic">
+                                                    <img alt="..." class="img-circle" 
+                                                        src="images/lonelyPlanet.jpg"/>
+                                                </div>
+                                                <div class="description">
+                                                    <h3 class="title">Lonely Planet</h3>
+                                                    <p class="small-text">FEB 2, 2018</p>
+                                                    <p class="description">
+                                                        If you happen to have some wildly valuable Bitcoin hanging around, there’s now a chance to spend some of the cryptocurrency at an Australian Airport.
+                                                    </p>
+
+                                                    <br>
+
+                                                    <a href="https://www.lonelyplanet.com/news/2018/02/01/brisbane-airport-bitcoin-cryptocurrency/">
+                                                        view full article
+                                                    </a>
+
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-member">
+                                            <div class="content">
+                                                <div class="avatar avatar-basic">
+                                                    <img alt="..." class="img-circle" 
+                                                        src="images/foxNews.png"/>
+                                                </div>
+                                                <div class="description">
+                                                    <h3 class="title">Fox News</h3>
+                                                    <p class="small-text">31 JAN, 2018</p>
+                                                    <p class="description">
+                                                        Australia’s Brisbane Airport quietly announced last week that it will soon allow travelers to pay with crypto coins at its terminal shopping areas, according to iT news. It will be the first airport in the world to do so.
+                                                    </p>
+
+                                                    <a href="http://www.foxnews.com/travel/2018/01/30/major-airport-announces-it-will-now-accept-bitcoin.html">
+                                                        view full article
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="container">
-        <img src="images/foxNews.png" alt="Avatar" class="av-img">
-        <h5 class="title">Fox News</h5>
-        <span class="time-right">31 JAN, 2018</span>
-
-        <div style="margin-top:5%;">
-          <div style="float:left; width:40%; margin-left:20%; margin-top:-3%;">
-            <img src="images/FNnews.PNG" style="height:60%; width:60%;">
-          </div>
-          
-          <div style="float:left; width:40%; margin-top:-8%; margin-left:-10%;" class="text-left">
-            <h6>
-              Major airport announces it will now accept bitcoin
-            </h6>
-            <p>
-                Australia’s Brisbane Airport quietly announced last week that it will soon allow travelers to pay with crypto coins at its terminal shopping areas, according to iT news. It will be the first airport in the world to do so.
-            </p>
-            <p>
-              By Aric Jensen.
-            </p>
-            <a href="http://www.foxnews.com/travel/2018/01/30/major-airport-announces-it-will-now-accept-bitcoin.html" 
-              style="color:black;">
-
-              view full article
-            </a>                      
-          </div>
-        </div>
-      </div>
-
-      <div class="container">
-        <img src="images/coinTelegraph.jpg" alt="Avatar" class="av-img">
-        <h5 class="title">Coin Telegraph</h5>
-        <span class="time-right">25 JAN, 2018</span>
-
-        <div style="margin-top: 5%">
-          <div style="float:left; width:40%; margin-left:20%; margin-top:-3%;">
-            <img src="images/CTkangaroo.jpg" style="height:60%; width:60%;">
-          </div>
-          
-          <div style="float:left; width:40%; margin-top:-8%; margin-left:-10%" class="text-left">
-            <h6>
-              World’s First Cryptocurrency Airport In Brisbane
-            </h6>
-            <p>
-                The airport is working with local and international companies to make the entire terminal cryptocurrency friendly, with stores, coffee shops and restaurants accepting Bitcoin, Ether and Dash.
-            </p>
-            <p>
-              By Jon Buck.
-            </p>
-            <a href="https://cointelegraph.com/news/worlds-first-cryptocurrency-airport-in-brisbane" 
-              style="color:black;">
-
-              view full article
-            </a>                      
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- maps -->
-    <div style="margin-top:10%;">
-      <div style="width:50%;">
-        <h2 class="display-5" id="map">Find a merchant!</h2>
-        <p class="lead">
-          There are currently over 30 merchants taking crypto in both the international and domestic terminals. Heres a couple of maps just to help you find them.
-        </p>
-      </div>
+    <div class="section">
+        <div class="container" style="min-height:36em; margin-top: 3em;">
+            <div class="title-area">
+                <h2>Whose Spending What?</h2>
+                <p class="description">
+                    We work towards supporting currencies with the greatest adoption.
+                </p>
+                <div class="separator separator-basic">∎</div>
+            </div>
 
-      <div style="margin-top:4%; float:left; width:45%; margin-left:2%;">
-        <h5>International Terminal</h5>
-        <img src="images/int_map.png" style="width:450px; height:35em;">
-      </div>
+            <div class="row" style="margin-top:-5%; margin-left:10%;">
+                <div class="col-md-7" style="width:50%;">
+                    <div id="chart" style="width:480px; height:250px;"></div>
+                </div>
 
-      <div style="margin-top:4%; float:left; width:45%; margin-left:5%;">
-        <h5>Domestic Terminal</h5>
-        <img src="images/dom_airport.png" style="width:450px; height:35em;">
-      </div>
+                <div class="col-md-7" style="margin-top:2%; width:50%;">
+                    <h3 class="text-left" style="margin-left:20px">The coins we support:</h3>
+                    <div>
+                      <img src="images/Bitcoin.png">
+                      <img src="images/Ether.png">
+                      <img src="images/Litecoin.png">
+                      <img src="images/Dash.png">
+                    </div>  
+                    <h3 class="text-left" style="margin-left:20px; margin-top:20px;">Coins coming soon:</h3>
+                    <div>
+                      <img src="images/NEM.png">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- signature modal -->
-  <div class="modal fade" id="signeeModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-  	<div class="modal-dialog" role="document">
-  		<div class="modal-content">
-  			<div class="modal-header">
-  				<h5>Thanks for signing!</h5>
-  				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-  				<span aria-hidden="true">&times;</span>
-  				</button>
-  			</div>
 
-  			<div class="modal-body">
-  				<p style="color:black">
-  					Just to make sure this is you, input the 5 digit code you 
-  					received when you completed your transaction.
-  				</p>
-  				<input type="text" id="5DigitCode" onkeyup="validate()" placeholder="5 digit code...">
-  				<input type="text" id="sign" onkeyup="submit()" placeholder="leave your signature">
-  				<button type="button" id="pushButton" class="btn btn-primary" onclick="push()">Submit</button>
-  			</div>
+    <div class="section section-small section-get-started">
+        <div class="parallax filter" style="min-height:44em;">
+            <div class="image"
+                style="background-image: url('images/LPcoffee.jpg')">
+            </div>
+            <div class="container" style="margin-top:10em;">
+                <div class="title-area">
+                    <h2 class="text-white">Get in touch with us?</h2>
+                    <div class="separator line-separator">♦</div>
+                    <p class="description">
+                        Our goal is to enable buisnesses small and large to be able to receive and trade cryptocurrency. A fundamental move towards a more fair and readily available finnacial system. If you are interested in becoming part of this move towards a crypto either as a merchnat or a consumer you can find our contact details below. 
+                    </p>
+                </div>
 
-  			<div class="modal-footer">
-  				<div class="footer"> Powered by <img src="images/travelbybit200.png"></div>
-  			</div>
-  		</div>
-  	</div>
-  </div>
+                <div class="button-get-started">
+                    <a href="https://www.travelbybit.com/contact" class="btn btn-white btn-fill btn-lg">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-	<script type="text/javascript" src="pieTest.js"></script>
-	<script type="text/javascript" src="example.js"></script>
+    <div class="section">
+        <div class="title-area">
+            <h2>Find A Merchant</h2>
+            <p class="description">
+                There are currently over 30 merchants taking crypto in both the international and domestic terminals. Heres a couple of maps just to help you find them.
+            </p>
+        </div>
 
-  </body>
+        <button class="accordion">International</button>
+        <div class="panel">
+          <img src="images/int_map.png">
+        </div>
+
+        <button class="accordion">Domestic</button>
+        <div class="panel">
+          <img src="images/dom_airport.png">
+        </div>
+    </div>
+
+    <!-- signature modal -->
+    <div class="modal fade" id="signeeModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div style="width:50%; display: inline-block;">
+                        <h3>Thanks for signing!</h3>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height:2.5em; width:2.5em;">
+                        <span aria-hidden="true" style="font-size: 1.61em;">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p>
+                        Just to make sure this is you, input the 5 digit code you 
+                        received when you completed your transaction.
+                    </p>
+                    <input type="text" id="5DigitCode" onkeyup="validate()" placeholder="5 digit code...">
+                    <input type="text" id="sign" onkeyup="submit()" placeholder="leave your signature">
+                    <button type="button" id="pushButton" class="btn btn-primary" onclick="push()">Submit</button>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="footer"> Powered by <img src="images/travelbybit200.png"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer footer-big footer-color-black" data-color="black">
+        
+        <div class="copyright">
+             © <script> document.write(new Date().getFullYear()) </script> TravelByBit
+        </div>
+
+    </footer>
+
+</body>
+
+<!--   core js files    -->
+<script src="assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.js" type="text/javascript"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+
+<!-- feature files -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js">
+</script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js">
+</script>
+
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js">
+</script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script type="text/javascript" src="pieTest.js"></script>
+<script type="text/javascript" src="example.js"></script>
+
+<!--  js library for devices recognition -->
+<script type="text/javascript" src="assets/js/modernizr.js"></script>
+
+<!--   file where we handle all the script from the Gaia - Bootstrap Template   -->
+<script type="text/javascript" src="assets/js/gaia.js"></script>
+
 </html>

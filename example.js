@@ -14,7 +14,7 @@ var database = firebase.database();
 
 var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-var validMerchants = ["NomNom", "Royal Black"];
+var validMerchants = ["NomNom","Emporium", "Royal Black"];
 var validCurrencies = ["Bitcoin", "Ether", "Litecoin", "Dash"];
 
 var chartData = [{"label":"Bitcoin", "value":0},{"label":"Litecoin","value":0},{"label":"Dash","value":0},{"label":"Ether","value":0}];
@@ -33,6 +33,20 @@ var dataTable = $('#transactionList').DataTable({
     "aoColumnDefs": [{"sType": "date","aTargets": [0]}]
 });
 
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
 
 function writeUserData(transactionId, date, merchant, amount, coin, signer) {
   firebase.database().ref('transactionId/' + transactionId).set({
