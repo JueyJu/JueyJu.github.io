@@ -1,4 +1,6 @@
 
+$("#shareModal").modal();
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyC5rQHrknPJAoa0Vh4-Ud2u7GSnboLFylE",
@@ -173,6 +175,7 @@ function openWebsocket() {
     ws.onmessage = function (evt) {
 
         var bill = JSON.parse(evt.data);
+        var passed = false;
 
         if(bill.merchant.split('-')[0] == "Cater Care " || validMerchants.indexOf(bill.merchant) > -1){
 
@@ -191,14 +194,17 @@ function openWebsocket() {
                         .row.add([bill.date, bill.amount, bill.actualAsset, savedTransactions[key].signer])
                         .draw()
                         .node();
+
+                    passed = true;
                     
-                }else if(j == Object.keys(savedTransactions).length - 1){
+                }else if(j == Object.keys(savedTransactions).length - 1 && !passed){
                     if(!compareDate(bill.date)){
                         var rowNode = dataTable
                             .row.add([bill.date, bill.amount, bill.actualAsset, "Anonymous"])
                             .draw()
                             .node();
                     }else{
+                        console.log(bill);
                         var vaildationButton  = '<button type="button" class="btn btn-primary"' 
                             + 'id="tx'+index+'" onclick="updateSignee(tx'+index+')">Sign</button>';
 
