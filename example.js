@@ -1,5 +1,3 @@
-$("#shareModal").modal();
-
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyC5rQHrknPJAoa0Vh4-Ud2u7GSnboLFylE",
