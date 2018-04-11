@@ -13,7 +13,7 @@ var database = firebase.database();
 
 var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-var validMerchants = ["Stephs Cafe", "Emporium", "Royal Black"];
+var validMerchants = ["Stephs Cafe", "Emporium Hotels", "Royal Black Private Transport"];
 var validCurrencies = ["Bitcoin", "Ether", "Litecoin", "Dash"];
 
 var chartData = [{"label":"Bitcoin", "value":0},{"label":"Litecoin","value":0},{"label":"Dash","value":0},{"label":"Ether","value":0}];
@@ -64,14 +64,8 @@ function readUserData(){
 }
 
 function updateSignee(txid){
-    currentId = txid;
+    currentId = txid.id.split("tx")[1];
     $("#signeeModal").modal();
-}
-
-function genRandomName(){
-    var index1 = Math.floor(Math.random()*12);
-    var index2 = Math.floor(Math.random()*12);
-    return adjectives[index1] + " " + animal[index2];
 }
 
 function getCurrentDate(){
@@ -134,7 +128,7 @@ function validate(){
     
     var validate = document.getElementById("5DigitCode").value;
 
-    if(validate == pass){
+    if(validate == pendingDict["tx"+currentId].code){
         document.getElementById("sign").removeAttribute('disabled');
     }else{
         document.getElementById("sign").setAttribute('disabled', 'disbaled');
@@ -142,13 +136,13 @@ function validate(){
 }
 
 function push(){
-    var txid = currentId.getAttribute('id');
+    var txid = "tx"+currentId;
     var signee = document.getElementById('sign').value;
 
     writeUserData("STx" + Object.keys(savedTransactions).length, pendingDict[txid].date, pendingDict[txid].merchant, 
         pendingDict[txid].amount, pendingDict[txid].coin, signee);
 
-    currentId.replaceWith(signee);
+    document.getElementById(txid).replaceWith(signee);
 
     $("#signeeModal").modal("hide");
     $("#shareModal").modal();
@@ -172,57 +166,62 @@ function openWebsocket() {
 
     ws.onmessage = function (evt) {
 
-        var bill = JSON.parse(evt.data);
-        var passed = false;
+        var log = JSON.parse(evt.data);
 
-        if(bill.merchant.split('-')[0] == "Cater Care " || validMerchants.indexOf(bill.merchant) > -1){
+        for(var i=0; i<log.length; i++){
 
-            genChartData(bill);
+            var bill = log[i];
+            var passed = false;
 
-            for(var j=0; j<Object.keys(savedTransactions).length; j++){
+            if(bill.merchant.split('-')[0] == "Cater Care " || validMerchants.indexOf(bill.merchant) > -1){
+                genChartData(bill);
 
-                var key = "STx" + j;
+                for(var j=0; j<Object.keys(savedTransactions).length; j++){
 
-                if(savedTransactions[key].date == bill.date
-                    && savedTransactions[key].merchant == bill.merchant
-                    && savedTransactions[key].amount == bill.amount
-                    && savedTransactions[key].coin == bill.actualAsset){
+                    var key = "STx" + j;
 
-                    var rowNode = dataTable
-                        .row.add([bill.date, bill.amount, bill.actualAsset, savedTransactions[key].signer])
-                        .draw()
-                        .node();
+                    if(savedTransactions[key].date == bill.date
+                        && savedTransactions[key].merchant == bill.merchant
+                        && savedTransactions[key].amount == bill.amount
+                        && savedTransactions[key].coin == bill.actualAsset){
 
-                    passed = true;
-                    
-                }else if(j == Object.keys(savedTransactions).length - 1 && !passed){
-                    if(!compareDate(bill.date)){
                         var rowNode = dataTable
-                            .row.add([bill.date, bill.amount, bill.actualAsset, "Anonymous"])
+                            .row.add([bill.date, bill.amount, bill.actualAsset, savedTransactions[key].signer])
                             .draw()
                             .node();
-                    }else{
-                        var vaildationButton  = '<button type="button" class="btn btn-primary"' 
-                            + 'id="tx'+index+'" onclick="updateSignee(tx'+index+')">Sign</button>';
 
-                        var tag = "tx" + index;
+                        passed = true;
+                        
+                    }else if(j == Object.keys(savedTransactions).length - 1 && !passed){
+                        if(!compareDate(bill.date)){
+                            var rowNode = dataTable
+                                .row.add([bill.date, bill.amount, bill.actualAsset, "Anonymous"])
+                                .draw()
+                                .node();
+                        }else{
+                            var vaildationButton  = '<button type="button" class="btn btn-primary"' 
+                                + 'id="tx'+index+'" onclick="updateSignee(tx'+index+')">Sign</button>';
 
-                        pendingDict[tag] = {"date": bill.date,
+                            var tag = "tx" + index;
+
+                            pendingDict[tag] = {"date": bill.date,
                                 "merchant": bill.merchant,
                                 "amount": bill.amount,
-                                "coin": bill.actualAsset};
+                                "coin": bill.actualAsset,
+                                "code": bill.merchantClaimCode};
 
-                        index++;
+                            index++;
 
-                        var rowNode = dataTable
-                            .row.add([bill.date, bill.amount, bill.actualAsset, vaildationButton])
-                            .draw()
-                            .node();
+                            var rowNode = dataTable
+                                .row.add([bill.date, bill.amount, bill.actualAsset, vaildationButton])
+                                .draw()
+                                .node();
+                        }
                     }
                 }
-            }
 
-            change(chartData);
+                change(chartData);
+            }
         }          
     };
 
@@ -246,8 +245,6 @@ if ("WebSocket" in window) {
     });
 
     openWebsocket();
-
-
 
 } else {
     // The browser doesn't support WebSocket
