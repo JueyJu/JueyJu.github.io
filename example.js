@@ -208,7 +208,6 @@ function openWebsocket() {
                                 .node();
                         }else{
 
-                            console.log(bill);
                             var vaildationButton  = '<button type="button" class="btn btn-primary"' 
                                 + 'id="tx'+index+'" onclick="updateSignee(tx'+index+')">Sign</button>';
 

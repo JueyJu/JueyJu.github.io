@@ -9,8 +9,8 @@ svg.append("g")
 svg.append("g")
     .attr("class", "lines");
 
-var width = 400,
-    height = 200,
+var width = 350,
+    height = 175,
     radius = Math.min(width, height) / 2;
 
 var pie = d3.layout.pie()
@@ -74,7 +74,7 @@ function change(data) {
 
     text.transition()
         .text(function(d) {
-            return d.data.label + " " + ((d.endAngle - d.startAngle)/(2*Math.PI)*100).toFixed(2) + "%";
+            return d.data.label + " " + ((d.endAngle - d.startAngle)/(2*Math.PI)*100).toFixed(1) + "%";
         });
     
     function midAngle(d){
