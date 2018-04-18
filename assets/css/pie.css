@@ -26,8 +26,8 @@ polyline{
     font-size: 15px;
     transition: 0.4s;
 
-    width: 70%;
-    margin-left: 15%
+    width: 80%;
+    margin-left: 10%
 }
 
 .active, .accordion:hover {
@@ -47,9 +47,8 @@ polyline{
 }
 
 .panel {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
-    margin-left: 20%;
     padding: 0 18px;
     background-color: white;
     max-height: 0;

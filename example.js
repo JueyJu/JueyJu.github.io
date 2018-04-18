@@ -168,6 +168,14 @@ function openWebsocket() {
 
         var log = JSON.parse(evt.data);
 
+        if (log.length < 1){
+            var tableDiv = document.getElementById(table);
+            var refresh =  document.createElement("button");
+            refresh.onclick = function() {location.reload();};
+
+            tableDiv.appendChild("");
+        }
+
         for(var i=0; i<log.length; i++){
 
             var bill = log[i];
@@ -199,6 +207,8 @@ function openWebsocket() {
                                 .draw()
                                 .node();
                         }else{
+
+                            console.log(bill);
                             var vaildationButton  = '<button type="button" class="btn btn-primary"' 
                                 + 'id="tx'+index+'" onclick="updateSignee(tx'+index+')">Sign</button>';
 

@@ -10,8 +10,8 @@ svg.append("g")
     .attr("class", "lines");
 
 var width = 400,
-    height = 300,
-    radius = Math.min(width, height) / 3;
+    height = 200,
+    radius = Math.min(width, height) / 2;
 
 var pie = d3.layout.pie()
     .sort(null)
