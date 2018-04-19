@@ -82,6 +82,11 @@ h5 a,
 h6 a,
 .h6 a,
 
+.reload {
+  display: flex;
+  justify-content: center;
+}
+
 .content-blog p a {
   font-size: inherit;
   font-family: "Cambo", "Times New Roman", serif;

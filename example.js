@@ -22,8 +22,6 @@ index = 0;
 var pendingDict = {};
 var count = 0;
 
-var pass = "tbb<3";
-
 var savedTransactions = {};
 var currentId = "";
 
@@ -45,6 +43,23 @@ for (i = 0; i < acc.length; i++) {
       panel.style.maxHeight = panel.scrollHeight + "px";
     } 
   });
+}
+
+function getCoinImage(coin){
+    switch (coin){
+        case "Bitcoin":
+            return "Bitcoin.png";
+            break;
+        case "Ether":
+            return "Ether.png";
+            break;
+        case "Litecoin":
+            return "Litecoin.png";
+            break;
+        case "Dash":
+            return "Dash.png";
+            break;
+    }
 }
 
 function writeUserData(transactionId, date, merchant, amount, coin, signer) {
@@ -168,12 +183,8 @@ function openWebsocket() {
 
         var log = JSON.parse(evt.data);
 
-        if (log.length < 1){
-            var tableDiv = document.getElementById(table);
-            var refresh =  document.createElement("button");
-            refresh.onclick = function() {location.reload();};
-
-            tableDiv.appendChild("");
+        if (log.length > 0){
+            $("#reload").remove();
         }
 
         for(var i=0; i<log.length; i++){
@@ -187,6 +198,7 @@ function openWebsocket() {
                 for(var j=0; j<Object.keys(savedTransactions).length; j++){
 
                     var key = "STx" + j;
+                    var coin = "<img src=\"images/"+getCoinImage(bill.actualAsset)+"\" style=\"width:20px; height:20px;\"> "
 
                     if(savedTransactions[key].date == bill.date
                         && savedTransactions[key].merchant == bill.merchant
@@ -194,7 +206,7 @@ function openWebsocket() {
                         && savedTransactions[key].coin == bill.actualAsset){
 
                         var rowNode = dataTable
-                            .row.add([bill.date, bill.amount, bill.actualAsset, savedTransactions[key].signer])
+                            .row.add([bill.date, bill.amount, coin + bill.actualAsset, savedTransactions[key].signer])
                             .draw()
                             .node();
 
@@ -203,7 +215,7 @@ function openWebsocket() {
                     }else if(j == Object.keys(savedTransactions).length - 1 && !passed){
                         if(!compareDate(bill.date)){
                             var rowNode = dataTable
-                                .row.add([bill.date, bill.amount, bill.actualAsset, "Anonymous"])
+                                .row.add([bill.date, bill.amount, coin + bill.actualAsset, "Anonymous"])
                                 .draw()
                                 .node();
                         }else{
@@ -222,7 +234,7 @@ function openWebsocket() {
                             index++;
 
                             var rowNode = dataTable
-                                .row.add([bill.date, bill.amount, bill.actualAsset, vaildationButton])
+                                .row.add([bill.date, bill.amount, coin + bill.actualAsset, vaildationButton])
                                 .draw()
                                 .node();
                         }
